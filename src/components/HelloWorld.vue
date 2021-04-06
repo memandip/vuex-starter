@@ -3,12 +3,16 @@
     <h1>{{ msg }}</h1>
     <p>Counter: {{ counter }}</p>
     <p>
-      <button @click="increment">+Increment</button>
+      <button @click="increment">+Increment</button>&nbsp;
+      <button @click="decrement">-Decrement</button>&nbsp;
+      <button @click="asyncFunc">+Async (after 3 seconds)</button>
     </p>
   </div>
 </template>
 
 <script>
+import { INCREMENT, DECREMENT, ASYNC_FUNC } from "./../store/mutations";
+
 export default {
   name: "HelloWorld",
   props: {
@@ -16,12 +20,18 @@ export default {
   },
   methods: {
     increment() {
-      this.$store.commit("increment");
+      this.$store.dispatch(INCREMENT);
+    },
+    decrement() {
+      this.$store.dispatch(DECREMENT);
+    },
+    asyncFunc() {
+      this.$store.dispatch(ASYNC_FUNC);
     },
   },
   computed: {
     counter() {
-      return this.$store.state.count;
+      return this.$store.state.counter;
     },
   },
 };
