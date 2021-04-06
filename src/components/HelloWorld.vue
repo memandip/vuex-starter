@@ -3,15 +3,29 @@
     <h1>{{ msg }}</h1>
     <p>Counter: {{ counter }}</p>
     <p>
-      <button @click="increment">+Increment</button>&nbsp;
-      <button @click="decrement">-Decrement</button>&nbsp;
-      <button @click="asyncFunc">+Async (after 3 seconds)</button>
+      <button @click="increment" :disabled="disabled">+Increment</button>&nbsp;
+      <button @click="decrement" :disabled="disabled">-Decrement</button>&nbsp;
+      <br />
+      <br />
+      <button @click="asyncIncrement" :disabled="disabled">
+        +Async increment (after 3 seconds)
+      </button>
+      &nbsp;
+      <button @click="asyncDecrement" :disabled="disabled">
+        -Async decrement (after 3 seconds)
+      </button>
+      &nbsp;
     </p>
   </div>
 </template>
 
 <script>
-import { INCREMENT, DECREMENT, ASYNC_FUNC } from "./../store/mutations";
+import {
+  INCREMENT,
+  DECREMENT,
+  ASYNC_INCREMENT,
+  ASYNC_DECREMENT,
+} from "./../store/mutations";
 
 export default {
   name: "HelloWorld",
@@ -25,13 +39,19 @@ export default {
     decrement() {
       this.$store.dispatch(DECREMENT);
     },
-    asyncFunc() {
-      this.$store.dispatch(ASYNC_FUNC);
+    asyncIncrement() {
+      this.$store.dispatch(ASYNC_INCREMENT);
+    },
+    asyncDecrement() {
+      this.$store.dispatch(ASYNC_DECREMENT);
     },
   },
   computed: {
     counter() {
       return this.$store.state.counter;
+    },
+    disabled() {
+      return this.$store.state.disabled;
     },
   },
 };
