@@ -7,8 +7,10 @@ import {
   SET_DISABLED
 } from "./mutations";
 import { state } from "./state";
+import { logger } from "./plugins";
 
 export const store = createStore({
+  plugins: [logger],
   state,
   mutations: {
     [INCREMENT](state, payload = { amount: 1 }) {
@@ -42,5 +44,6 @@ export const store = createStore({
         commit(SET_DISABLED, { disabled: false });
       }, 3000);
     }
-  }
+  },
+
 });
